@@ -3,8 +3,8 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: embarkx
+      POSTGRES_PASSWORD: embarkx
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -31,9 +31,17 @@ services:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
-    - 9411:9411
+      - 9411:9411
     networks:
-    - postgres
+      - postgres
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - postgres
 
 networks:
   postgres:
