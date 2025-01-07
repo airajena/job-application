@@ -43,7 +43,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @CircuitBreaker(name = "companyBreaker")
+        @CircuitBreaker(name = "companyBreaker",
+            fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAll() {
         List<Job> jobs = jobRepository.findAll();
         List<JobDTO> jobDTOS = new ArrayList<>();
@@ -62,6 +63,21 @@ public class JobServiceImpl implements JobService {
 
         return jobDTO;
     }
+
+    public List<JobDTO> companyBreakerFallback(Exception e) {
+
+        // Provide a sensible fallback response
+        List<JobDTO> fallbackJobs = new ArrayList<>();
+        JobDTO fallbackJob = new JobDTO();
+        fallbackJob.setId(-1L);
+        fallbackJob.setTitle("Service Unavailable");
+        fallbackJob.setDescription("The service is currently unavailable. Please try again later.");
+
+        fallbackJobs.add(fallbackJob);
+
+        return fallbackJobs;
+    }
+
 
     @Override
     public void createJob(Job job) {
