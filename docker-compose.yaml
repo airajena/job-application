@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   postgres:
     container_name: postgres_container
@@ -13,6 +15,7 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -27,32 +30,23 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
-      - 9411:9411
+      - "9411:9411"
     networks:
-<<<<<<< HEAD
-    - postgres
-=======
       - postgres
->>>>>>> 6aee0ae4244b4d10bc3e457761fdf372cf9dbc7d
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-<<<<<<< HEAD
-    - 5672:5672
-    - 15672:15672
-    networks:
-    - postgres
-=======
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - postgres
->>>>>>> 6aee0ae4244b4d10bc3e457761fdf372cf9dbc7d
 
 networks:
   postgres:
