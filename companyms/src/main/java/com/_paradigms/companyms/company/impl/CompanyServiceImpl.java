@@ -3,6 +3,7 @@ package com._paradigms.companyms.company.impl;
 import com._paradigms.companyms.company.Company;
 import com._paradigms.companyms.company.CompanyRepository;
 import com._paradigms.companyms.company.CompanyService;
+import com._paradigms.companyms.company.dto.ReviewMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,7 @@ public class CompanyServiceImpl implements CompanyService {
     public Company getCompanyById(Long id) {
         return companyRepository.findById(id).orElse(null);
     }
-
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+    }
 }
