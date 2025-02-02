@@ -12,3 +12,4 @@ public interface CompanyService {
     Company getCompanyById(Long id);
     public void updateCompanyRating(ReviewMessage reviewMessage);
 }
+

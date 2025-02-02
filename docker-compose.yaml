@@ -31,17 +31,28 @@ services:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
-    - 9411:9411
+      - 9411:9411
     networks:
+<<<<<<< HEAD
     - postgres
+=======
+      - postgres
+>>>>>>> 6aee0ae4244b4d10bc3e457761fdf372cf9dbc7d
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
+<<<<<<< HEAD
     - 5672:5672
     - 15672:15672
     networks:
     - postgres
+=======
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - postgres
+>>>>>>> 6aee0ae4244b4d10bc3e457761fdf372cf9dbc7d
 
 networks:
   postgres:

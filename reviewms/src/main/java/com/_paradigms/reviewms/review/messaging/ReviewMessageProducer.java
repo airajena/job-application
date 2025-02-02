@@ -1,10 +1,8 @@
 package com._paradigms.reviewms.review.messaging;
-
 import com._paradigms.reviewms.review.Review;
 import com._paradigms.reviewms.review.dto.ReviewMessage;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-
 @Service
 public class ReviewMessageProducer {
     private final RabbitTemplate rabbitTemplate;

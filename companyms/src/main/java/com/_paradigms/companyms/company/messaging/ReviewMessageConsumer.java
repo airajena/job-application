@@ -4,7 +4,6 @@ import com._paradigms.companyms.company.CompanyService;
 import com._paradigms.companyms.company.dto.ReviewMessage;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-
 @Service
 public class ReviewMessageConsumer {
     private final CompanyService companyService;
