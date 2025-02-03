@@ -13,7 +13,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - app-network
     restart: unless-stopped
 
   pgadmin:
@@ -28,7 +28,7 @@ services:
     ports:
       - "5050:80"
     networks:
-      - postgres
+      - app-network
     restart: unless-stopped
 
   zipkin:
@@ -37,7 +37,7 @@ services:
     ports:
       - "9411:9411"
     networks:
-      - postgres
+      - app-network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -46,12 +46,50 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - postgres
+      - app-network
+
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "admin"
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring-network
+    depends_on:
+      - prometheus
+    restart: unless-stopped
 
 networks:
-  postgres:
+  app-network:
+    driver: bridge
+  monitoring-network:
     driver: bridge
 
 volumes:
   postgres:
   pgadmin:
+  redis-data:
